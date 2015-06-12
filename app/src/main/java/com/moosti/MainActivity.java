@@ -9,6 +9,15 @@ import android.view.MenuItem;
 
 public class MainActivity extends ActionBarActivity {
 
+    enum CHRONOSTATE {
+        FOCUSED,
+        SHORT_BREAKED,
+        LONG_BREAKED,
+        STOPPED
+    }
+
+    private CHRONOSTATE state;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -17,6 +26,8 @@ public class MainActivity extends ActionBarActivity {
         final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setLogo(R.mipmap.ic_launcher);
+
+        state = CHRONOSTATE.STOPPED;
 
     }
 
