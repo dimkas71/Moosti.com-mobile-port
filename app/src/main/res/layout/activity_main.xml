@@ -17,21 +17,21 @@
         app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         />
 
-    <Chronometer
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/chronometer"
-        android:format="MM:SS"
+        android:id="@+id/textView"
         android:textSize="72sp"
-        android:textColor="#008f00"
+        android:textColor="@color/accent_material_light"
         android:layout_below="@id/toolbar"
         android:layout_alignParentTop="false"
-        android:layout_centerHorizontal="true"/>
+        android:layout_centerHorizontal="true"
+        android:text="00:00"/>
 
     <Space
         android:layout_width="match_parent"
         android:layout_height="10dp"
-        android:layout_below="@+id/chronometer"
+        android:layout_below="@+id/textView"
         android:layout_centerHorizontal="true"
         android:background="#ff6789ff"
         android:id="@+id/space" />
