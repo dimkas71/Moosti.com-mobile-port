@@ -99,48 +99,14 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 
                 state = CHRONOSTATE.FOCUSED;
 
-                if (timer != null) {
-                    timer.cancel();
-                    textView.setText("00:00");
-                }
-
-                timer = new CountDownTimer(1800000, 1000) {
-                    @Override
-                    public void onTick(long millisUntilFinished) {
-                        long seconds = millisUntilFinished / 1000;
-                        textView.setText(DateUtils.formatElapsedTime(recycled, seconds));
-                    }
-
-                    @Override
-                    public void onFinish() {
-                        textView.setText("00:00");
-                    }
-                };
-                timer.start();
+                startTimer(30);
 
                 break;
             case R.id.btn_short_break:
 
                 state = CHRONOSTATE.SHORT_BREAKED;
 
-                if (timer != null) {
-                    timer.cancel();
-                    textView.setText("00:00");
-                }
-
-                timer = new CountDownTimer(300000, 1000) {
-                    @Override
-                    public void onTick(long millisUntilFinished) {
-                        long seconds = millisUntilFinished / 1000;
-                        textView.setText(DateUtils.formatElapsedTime(recycled, seconds));
-                    }
-
-                    @Override
-                    public void onFinish() {
-                        textView.setText("00:00");
-                    }
-                };
-                timer.start();
+                startTimer(5);
 
 
                 break;
@@ -148,39 +114,44 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 
                 state = CHRONOSTATE.LONG_BREAKED;
 
-                if (timer != null) {
-                    timer.cancel();
-                    textView.setText("00:00");
-                }
-
-                timer = new CountDownTimer(900000, 1000) {
-                    @Override
-                    public void onTick(long millisUntilFinished) {
-                        long seconds = millisUntilFinished / 1000;
-                        textView.setText(DateUtils.formatElapsedTime(recycled, seconds));
-                    }
-
-                    @Override
-                    public void onFinish() {
-                        textView.setText("00:00");
-                    }
-                };
-                timer.start();
+                startTimer(15);
 
                 break;
             case R.id.btn_stop:
 
                 state = CHRONOSTATE.STOPPED;
 
-                if (timer != null) {
-                    timer.cancel();
-                    textView.setText("00:00");
-                }
+                stopTimer();
 
                 break;
 
         }
 
+    }
+
+    private void startTimer(int minutesInFuture) {
+        stopTimer();
+
+        timer = new CountDownTimer(minutesInFuture * 60 * 1000, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                long seconds = millisUntilFinished / 1000;
+                textView.setText(DateUtils.formatElapsedTime(recycled, seconds));
+            }
+
+            @Override
+            public void onFinish() {
+                textView.setText("00:00");
+            }
+        };
+        timer.start();
+    }
+
+    private void stopTimer() {
+        if (timer != null) {
+            timer.cancel();
+            textView.setText("00:00");
+        }
     }
 
 
