@@ -43,29 +43,67 @@
         android:layout_below="@+id/space"
         >
 
-        <Button
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text=".focus"
-            android:id="@+id/btn_focus"
             android:layout_weight="1"
-        />
+            android:orientation="vertical">
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text=".short brk"
-            android:id="@+id/btn_short_break"
-            android:layout_weight="1"
-        />
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=".focus"
+                android:id="@+id/btn_focus"
+                />
+            <SeekBar
+                android:id="@+id/seekBrFocus"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                />
 
-        <Button
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text=".long brk"
-            android:id="@+id/btn_long_break"
             android:layout_weight="1"
-         />
+            android:orientation="vertical">
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=".short brk"
+                android:id="@+id/btn_short_break"
+                />
+
+            <SeekBar
+                android:id="@+id/seekBrShortBreak"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=".long brk"
+                android:id="@+id/btn_long_break"
+                />
+
+            <SeekBar
+                android:id="@+id/seekBrLongBreak"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+              />
+
+        </LinearLayout>
+
 
         <Button
             android:layout_width="wrap_content"
