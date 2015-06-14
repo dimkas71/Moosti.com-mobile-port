@@ -1,5 +1,6 @@
 package com.moosti;
 
+import android.media.MediaPlayer;
 import android.os.CountDownTimer;
 import android.os.SystemClock;
 import android.support.v7.app.ActionBarActivity;
@@ -15,6 +16,8 @@ import android.widget.Chronometer;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.IOException;
+
 
 public class MainActivity extends ActionBarActivity implements View.OnClickListener {
 
@@ -28,6 +31,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
     private Button buttonStop;
     private TextView textView;
     private StringBuilder recycled;
+    private MediaPlayer player;
 
     enum CHRONOSTATE {
         FOCUSED,
@@ -63,8 +67,27 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         buttonStop = (Button)findViewById(R.id.btn_stop);
         buttonStop.setOnClickListener(this);
 
+        player = MediaPlayer.create(this, R.raw.ring_end);
 
 
+    }
+
+    @Override
+    protected void onPause() {
+        if (player != null) {
+            if (player.isPlaying()) {
+                player.stop();
+            }
+        }
+        super.onPause();
+    }
+
+    @Override
+    protected void onDestroy() {
+        if (player != null) {
+            player.stop();
+        }
+        super.onDestroy();
     }
 
     @Override
@@ -106,7 +129,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 
                 state = CHRONOSTATE.SHORT_BREAKED;
 
-                startTimer(5);
+                startTimer(1);
 
 
                 break;
@@ -143,13 +166,16 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
             public void onFinish() {
 
                 //TODO: add method to send a notification for a user
-                //TODO: add method to play some music to indicate ending of a process
                 //TODO: add vibration effect to end of a process
-
+                play();
                 textView.setText("00:00");
             }
         };
         timer.start();
+    }
+
+    private void play() {
+        player.start();
     }
 
     private void stopTimer() {
