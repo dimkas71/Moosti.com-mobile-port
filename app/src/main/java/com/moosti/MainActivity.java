@@ -2,26 +2,22 @@ package com.moosti;
 
 import android.media.MediaPlayer;
 import android.os.CountDownTimer;
-import android.os.SystemClock;
+import android.os.Vibrator;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.format.DateUtils;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Chronometer;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import java.io.IOException;
 
 
 public class MainActivity extends ActionBarActivity implements View.OnClickListener {
 
     private static final String TAG = MainActivity.class.getSimpleName();
+    public static final int VIBRATION_INTERVAL_IN_MILLIS = 2000;
 
     private CountDownTimer timer;
 
@@ -166,12 +162,19 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
             public void onFinish() {
 
                 //TODO: add method to send a notification for a user
-                //TODO: add vibration effect to end of a process
+                vibrate();
                 play();
                 textView.setText("00:00");
             }
         };
         timer.start();
+    }
+
+    private void vibrate() {
+
+        final Vibrator vibratorServise = (Vibrator)getSystemService(VIBRATOR_SERVICE);
+        vibratorServise.vibrate(VIBRATION_INTERVAL_IN_MILLIS);
+
     }
 
     private void play() {
