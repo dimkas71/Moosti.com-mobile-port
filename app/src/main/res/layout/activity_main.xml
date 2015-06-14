@@ -54,6 +54,11 @@
                 android:layout_height="wrap_content"
                 android:text=".focus"
                 android:id="@+id/btn_focus"
+
+                android:background="@drawable/button"
+
+                android:layout_marginRight="@dimen/button_margin"
+                android:textColor="@color/primary_material_light"
                 />
             <SeekBar
                 android:id="@+id/seekBrFocus"
@@ -74,6 +79,11 @@
                 android:layout_height="wrap_content"
                 android:text=".short brk"
                 android:id="@+id/btn_short_break"
+
+                android:background="@drawable/button"
+                android:layout_marginRight="@dimen/button_margin"
+                android:textColor="@color/primary_material_light"
+
                 />
 
             <SeekBar
@@ -94,6 +104,10 @@
                 android:layout_height="wrap_content"
                 android:text=".long brk"
                 android:id="@+id/btn_long_break"
+
+                android:background="@drawable/button"
+                android:layout_marginRight="@dimen/button_margin"
+                android:textColor="@color/primary_material_light"
                 />
 
             <SeekBar
@@ -111,6 +125,9 @@
             android:text=".stop"
             android:id="@+id/btn_stop"
             android:layout_weight="1"
+
+            android:background="@drawable/button_stop"
+            android:textColor="@color/primary_material_light"
          />
 
 

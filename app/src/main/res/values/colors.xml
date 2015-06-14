@@ -1,0 +1,8 @@
+<resources>
+    <color name="buttonBackgroundMain">#ffff6f00</color>
+    <color name="buttonBackgroundStop">#bf360c</color>
+    <color name="buttonOnHover">#ff5a68ff</color>
+    <color name="buttonTextColor">#ffffffff</color>
+    <color name="seekBarTint">#e0e0e0</color>
+    <color name="seekBarProgressTint">#000000</color>
+</resources>
