@@ -141,6 +141,11 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 
             @Override
             public void onFinish() {
+
+                //TODO: add method to send a notification for a user
+                //TODO: add method to play some music to indicate ending of a process
+                //TODO: add vibration effect to end of a process
+
                 textView.setText("00:00");
             }
         };
