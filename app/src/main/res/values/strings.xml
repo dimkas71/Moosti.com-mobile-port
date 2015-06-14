@@ -3,4 +3,9 @@
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="button_focus_text">.Focus</string>
+    <string name="button_short_break_text">.short brk</string>
+    <string name="button_long_break_text">.long brk</string>
+    <string name="button_stop_text">.stop</string>
+
 </resources>

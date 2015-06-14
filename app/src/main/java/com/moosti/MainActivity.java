@@ -16,10 +16,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.SeekBar;
 import android.widget.TextView;
 
 
-public class MainActivity extends ActionBarActivity implements View.OnClickListener {
+public class MainActivity extends ActionBarActivity implements View.OnClickListener, SeekBar.OnSeekBarChangeListener {
 
     private static final String TAG = MainActivity.class.getSimpleName();
     public static final int VIBRATION_INTERVAL_IN_MILLIS = 2000;
@@ -33,6 +34,14 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
     private TextView textView;
     private StringBuilder recycled;
     private MediaPlayer player;
+    private SeekBar seekBarFocus;
+    private SeekBar seekBarShortBreak;
+    private SeekBar seekBarLongBreak;
+
+    private int focusInFuture;
+    private int shortBreakInFuture;
+    private int longBreakInFuture;
+
 
     enum CHRONOSTATE {
         FOCUSED,
@@ -69,6 +78,42 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         buttonStop.setOnClickListener(this);
 
         player = MediaPlayer.create(this, R.raw.ring_end);
+
+
+        initSeekBars();
+
+
+    }
+
+    private void initSeekBars() {
+
+        seekBarFocus = (SeekBar) findViewById(R.id.seekBrFocus);
+
+        seekBarFocus.setOnSeekBarChangeListener(this);
+        seekBarFocus.setMax(60); //Max value for focus is 60 minutes...
+        seekBarFocus.setProgress(30);
+        focusInFuture = 30;
+        buttonFocus.setText(getResources().getString(R.string.button_focus_text) + "(" + String.format("%d", seekBarFocus.getProgress()) + ")");
+
+
+        seekBarShortBreak = (SeekBar) findViewById(R.id.seekBrShortBreak);
+
+        seekBarShortBreak.setOnSeekBarChangeListener(this);
+        seekBarShortBreak.setMax(5); //Max value for focus is 60 minutes...
+        seekBarShortBreak.setProgress(5);
+        shortBreakInFuture = 5;
+
+        buttonShortBreak.setText(getResources().getString(R.string.button_short_break_text) + "(" + String.format("%d", seekBarShortBreak.getProgress()) + ")");
+
+
+        seekBarLongBreak = (SeekBar) findViewById(R.id.seekBrLongBreak);
+
+        seekBarLongBreak.setOnSeekBarChangeListener(this);
+        seekBarLongBreak.setMax(30); //Max value for focus is 60 minutes...
+        seekBarLongBreak.setProgress(20);
+        longBreakInFuture = 20;
+
+        buttonLongBreak.setText(getResources().getString(R.string.button_long_break_text) + "(" + String.format("%d", seekBarLongBreak.getProgress()) + ")");
 
 
     }
@@ -123,14 +168,14 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 
                 state = CHRONOSTATE.FOCUSED;
 
-                startTimer(30);
+                startTimer(focusInFuture);
 
                 break;
             case R.id.btn_short_break:
 
                 state = CHRONOSTATE.SHORT_BREAKED;
 
-                startTimer(1);
+                startTimer(shortBreakInFuture);
 
 
                 break;
@@ -138,7 +183,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 
                 state = CHRONOSTATE.LONG_BREAKED;
 
-                startTimer(15);
+                startTimer(longBreakInFuture);
 
                 break;
             case R.id.btn_stop:
@@ -216,6 +261,45 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
             timer.cancel();
             textView.setText("00:00");
         }
+    }
+
+    //Seek bars handlers
+
+    @Override
+    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+
+        final int id = seekBar.getId();
+
+        switch (id) {
+            case R.id.seekBrFocus:
+
+                focusInFuture = progress;
+                buttonFocus.setText(getResources().getString(R.string.button_focus_text) + "(" + String.format("%d", progress) + ")");
+
+                break;
+            case R.id.seekBrShortBreak:
+
+                shortBreakInFuture = progress;
+                buttonShortBreak.setText(getResources().getString(R.string.button_short_break_text) + "(" + String.format("%d", progress) + ")");
+
+                break;
+            case R.id.seekBrLongBreak:
+
+                longBreakInFuture = progress;
+                buttonLongBreak.setText(getResources().getString(R.string.button_long_break_text) + "(" + String.format("%d", progress) + ")");
+
+                break;
+        }
+    }
+
+    @Override
+    public void onStartTrackingTouch(SeekBar seekBar) {
+
+    }
+
+    @Override
+    public void onStopTrackingTouch(SeekBar seekBar) {
+
     }
 
 
