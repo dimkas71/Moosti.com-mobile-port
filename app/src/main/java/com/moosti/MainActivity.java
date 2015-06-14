@@ -1,5 +1,10 @@
 package com.moosti;
 
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.app.TaskStackBuilder;
+import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.CountDownTimer;
 import android.os.Vibrator;
@@ -161,13 +166,38 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
             @Override
             public void onFinish() {
 
-                //TODO: add method to send a notification for a user
+                sendNotification();
                 vibrate();
                 play();
                 textView.setText("00:00");
             }
         };
         timer.start();
+    }
+
+    private void sendNotification() {
+
+        final Intent intent = new Intent(this, MainActivity.class);
+
+        final TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
+
+        stackBuilder.addParentStack(MainActivity.class);
+        stackBuilder.addNextIntent(intent);
+
+
+        PendingIntent pendIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        final Notification notification = new Notification.Builder(this)
+                .setSmallIcon(R.mipmap.ic_launcher)
+                .setContentTitle("Moosti.com: A task is finished")
+                .setContentInfo("Last task was finished sucessefully")
+                .setContentIntent(pendIntent)
+                .build();
+
+        final NotificationManager nm = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+
+        nm.notify(0, notification);
+
     }
 
     private void vibrate() {
