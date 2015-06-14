@@ -64,6 +64,8 @@
                 android:id="@+id/seekBrFocus"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:progressDrawable="@drawable/seakbar"
+                android:thumb="@drawable/seakbar_thumb"
                 />
 
         </LinearLayout>
@@ -89,7 +91,9 @@
             <SeekBar
                 android:id="@+id/seekBrShortBreak"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:progressDrawable="@drawable/seakbar"
+                android:thumb="@drawable/seakbar_thumb"/>
 
         </LinearLayout>
 
@@ -114,6 +118,8 @@
                 android:id="@+id/seekBrLongBreak"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:progressDrawable="@drawable/seakbar"
+                android:thumb="@drawable/seakbar_thumb"
               />
 
         </LinearLayout>
