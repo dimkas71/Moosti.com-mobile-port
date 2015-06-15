@@ -5,6 +5,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.TaskStackBuilder;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.os.CountDownTimer;
 import android.os.Vibrator;
@@ -42,6 +43,13 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
     private int shortBreakInFuture;
     private int longBreakInFuture;
 
+    private static final String KEY_FOCUS_IN_FUTURE = "KEY_FOCUS_IN_FUTURE";
+    private static final String KEY_STOPBREAK_IN_FUTURE = "KEY_STOPBREAK_IN_FUTURE";
+    private static final String KEY_LONGBREAK_IN_FUTURE = "KEY_LONGBREAK_IN_FUTURE";
+
+    private SharedPreferences preferences;
+
+
 
     enum CHRONOSTATE {
         FOCUSED,
@@ -56,6 +64,14 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
+        preferences = getSharedPreferences("moosti_prefs", MODE_PRIVATE);
+
+        focusInFuture = preferences.getInt(KEY_FOCUS_IN_FUTURE, 30);
+        shortBreakInFuture = preferences.getInt(KEY_STOPBREAK_IN_FUTURE, 5);
+        longBreakInFuture = preferences.getInt(KEY_LONGBREAK_IN_FUTURE, 20);
+
 
         final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -88,31 +104,20 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
     private void initSeekBars() {
 
         seekBarFocus = (SeekBar) findViewById(R.id.seekBrFocus);
-
         seekBarFocus.setOnSeekBarChangeListener(this);
-        seekBarFocus.setMax(60); //Max value for focus is 60 minutes...
-        seekBarFocus.setProgress(30);
-        focusInFuture = 30;
+        seekBarFocus.setProgress(focusInFuture);
         buttonFocus.setText(getResources().getString(R.string.button_focus_text) + "(" + String.format("%d", seekBarFocus.getProgress()) + ")");
 
 
         seekBarShortBreak = (SeekBar) findViewById(R.id.seekBrShortBreak);
-
         seekBarShortBreak.setOnSeekBarChangeListener(this);
-        seekBarShortBreak.setMax(5); //Max value for focus is 60 minutes...
-        seekBarShortBreak.setProgress(5);
-        shortBreakInFuture = 5;
-
+        seekBarShortBreak.setProgress(shortBreakInFuture);
         buttonShortBreak.setText(getResources().getString(R.string.button_short_break_text) + "(" + String.format("%d", seekBarShortBreak.getProgress()) + ")");
 
 
         seekBarLongBreak = (SeekBar) findViewById(R.id.seekBrLongBreak);
-
         seekBarLongBreak.setOnSeekBarChangeListener(this);
-        seekBarLongBreak.setMax(30); //Max value for focus is 60 minutes...
-        seekBarLongBreak.setProgress(20);
-        longBreakInFuture = 20;
-
+        seekBarLongBreak.setProgress(longBreakInFuture);
         buttonLongBreak.setText(getResources().getString(R.string.button_long_break_text) + "(" + String.format("%d", seekBarLongBreak.getProgress()) + ")");
 
 
@@ -125,6 +130,15 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
                 player.stop();
             }
         }
+
+        final SharedPreferences.Editor editor = preferences.edit();
+
+        editor.putInt(KEY_FOCUS_IN_FUTURE, focusInFuture);
+        editor.putInt(KEY_LONGBREAK_IN_FUTURE, longBreakInFuture);
+        editor.putInt(KEY_STOPBREAK_IN_FUTURE, shortBreakInFuture);
+
+        editor.commit();
+
         super.onPause();
     }
 

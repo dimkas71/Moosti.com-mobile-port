@@ -66,6 +66,7 @@
                 android:layout_height="wrap_content"
                 android:progressDrawable="@drawable/seakbar"
                 android:thumb="@drawable/seakbar_thumb"
+                android:max="60"
                 />
 
         </LinearLayout>
@@ -93,7 +94,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:progressDrawable="@drawable/seakbar"
-                android:thumb="@drawable/seakbar_thumb"/>
+                android:thumb="@drawable/seakbar_thumb"
+                android:max="5"/>
 
         </LinearLayout>
 
@@ -120,6 +122,7 @@
                 android:layout_height="wrap_content"
                 android:progressDrawable="@drawable/seakbar"
                 android:thumb="@drawable/seakbar_thumb"
+                android:max="30"
               />
 
         </LinearLayout>
